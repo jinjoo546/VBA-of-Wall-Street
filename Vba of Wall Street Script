@@ -1,0 +1,41 @@
+Sub StockMarketData()
+    
+    Dim ticker As String
+    Dim TotalStockVolume As Double
+    Dim LastRow As Long
+    Dim x As Integer
+    
+    For Each ws In Worksheets
+        
+        
+        ws.Range("i1").Value = "Ticker"
+        ws.Range("j1").Value = "Total Stock Volume"
+        
+        TotalStockVolume = 0
+        x = 2
+        LastRow = Cells(Rows.Count, 1).End(xlUp).Row
+        
+        For i = 2 To LastRow
+            
+            If ws.Cells(i, 1).Value = ws.Cells(i + 1, 1).Value Then
+                TotalStockVolume = TotalStockVolume + ws.Cells(i, 7).Value
+                
+            Else
+                ticker = ws.Cells(i, 1).Value
+                ws.Cells(x, 9).Value = ticker
+                ws.Cells(x, 10).Value = TotalStockVolume + ws.Cells(i, 7).Value
+                x = x + 1
+                TotalStockVolume = 0
+                
+            End If
+            
+        Next i
+            
+    Next ws
+End Sub
+        
+        
+        
+        
+        
+
